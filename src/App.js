@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './components/Login'
 import Header from './components/Header'
+import Home from './components/Home'
 import './App.css'
 
 function App () {
@@ -10,7 +11,8 @@ function App () {
       <Router> {/* Wrap the entire application in a Router component to enable routing */}
       <Header />{/* We keep this outside routes since it is common in all the pages  */}
         <Routes> {/*Define the routes for the application using the Routes component */}
-          <Route exact path='/' element={<Login />} /> {/* Define a specific route for the Login component */}
+          <Route path='/' element={<Login />} /> {/* Define a specific route for the Login component */}
+          <Route path='/home' element={<Home />} />
         </Routes>
       </Router>
     </div>
