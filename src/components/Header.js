@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,7 +13,7 @@ import {
   setUserLoginDetails
 } from '../features/user/userSlice'
 
-const Header = (props) => {
+const Header = props => {
   const dispatch = useDispatch() //Using to dispatch the details
   const history = useNavigate() //Using to access the history
   //Pulling the username and photo from the store.js file
@@ -24,29 +25,31 @@ const Header = (props) => {
     auth.onAuthStateChanged(async user => {
       if (user) {
         setUser(user)
-        history("Home")
+        history('/home')
       }
-    });
-  })
-  
+    })
+  }, [userName])
 
   const handleAuth = () => {
     //Checking if the userName exist or not
-    if(!userName){
-    //Requesting for the google oAuth when login is clicked
-    auth
-      .signInWithPopup(provider)
-      .then(result => {
-        setUser(result.user)
-      })
-      .catch(error => {
-        alert(error.message)
-      })
-    }else if(userName) {
-      auth.signOut().then(() => {
-        dispatch(setSignOutState())
-        history("/")
-      }).catch((err) => alert(err.message));
+    if (!userName) {
+      //Requesting for the google oAuth when login is clicked
+      auth
+        .signInWithPopup(provider)
+        .then(result => {
+          setUser(result.user)
+        })
+        .catch(error => {
+          alert(error.message)
+        })
+    } else if (userName) {
+      auth
+        .signOut()
+        .then(() => {
+          dispatch(setSignOutState())
+          history('/')
+        })
+        .catch(err => alert(err.message))
     }
   }
 
@@ -102,7 +105,7 @@ const Header = (props) => {
           <Signout>
             <UserImg src={userPhoto} alt={userName} />
             <Dropdown>
-              <span onClick = {handleAuth} >Sign Out</span>
+              <span onClick={handleAuth}>Sign Out</span>
             </Dropdown>
           </Signout>
         </>
@@ -248,7 +251,7 @@ const Dropdown = styled.div`
   position: absolute;
   top: 48px;
   right: 0px;
-  background: rgb(19,19,19);
+  background: rgb(19, 19, 19);
   border: 1px solid rgb(151, 151, 151, 0.34);
   border-radius: 4px;
   box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
@@ -266,11 +269,11 @@ const Signout = styled.div`
   display: flex;
   cursor: pointer;
   align-items: center; /* To vertically align */
-  justify-content: center;/* To horizontally align */
+  justify-content: center; /* To horizontally align */
 
-  &:hover{
+  &:hover {
     ${Dropdown} {
-      opacity:1;
+      opacity: 1;
       transition-duration: 1s;
     }
   }

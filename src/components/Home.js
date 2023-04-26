@@ -1,6 +1,7 @@
-/* eslint-disable default-case */
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable default-case */
+
 import styled from 'styled-components'
 import ImgSlider from './ImgSlider'
 import NewDisney from './NewDisney'
@@ -17,13 +18,13 @@ import { selectUserName } from '../features/user/userSlice'
 const Home = props => {
   const dispatch = useDispatch()
   const userName = useSelector(selectUserName)
-  let recommends = []
-  let newDisneys = []
-  let originals = []
-  let trending = []
 
   useEffect(() => {
-    console.log('hello')
+    let recommends = []
+    let newDisneys = []
+    let originals = []
+    let trending = []
+
     db.collection('movies').onSnapshot(snapshot => {
       snapshot.docs.map(doc => {
         console.log(recommends)
